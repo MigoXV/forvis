@@ -1,1 +1,2 @@
 from forvis.tasks.organ import OrganClassficationTask
+from forvis.tasks.organ_minio import OrganMinioClassficationTask

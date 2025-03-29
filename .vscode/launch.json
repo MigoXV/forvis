@@ -13,9 +13,10 @@
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${workspaceFolder}/forvis",
-                "HYDRA_FULL_ERROR": "1"
+                "HYDRA_FULL_ERROR": "1",
+                "CUDA_VISIBLE_DEVICES": "3",
             },
-            "args": "--config-dir forvis/presets --config-name organ",
+            "args": "--config-dir forvis/presets --config-name organ_minio",
             "justMyCode": false
         },
         {
