@@ -11,7 +11,7 @@ from fairseq.dataclass import FairseqDataclass
 from fairseq.tasks import FairseqTask, register_task
 
 from forvis.datasets.minio_config import MinIOConfig
-from forvis.datasets.organ_minio import OrganMinIODataset
+from forvis.datasets.organ_minio import OrganMinIODataset, OrganTrainMinIODataset
 
 
 @dataclass
@@ -55,7 +55,7 @@ class OrganMinioClassficationTask(FairseqTask):
 
     def load_dataset(self, split, **kwargs):
         if split == "train":
-            self.datasets[split] = OrganMinIODataset(
+            self.datasets[split] = OrganTrainMinIODataset(
                 self.organ_dict, self.train_df, self.config.minio_config
             )
         elif split == "valid":

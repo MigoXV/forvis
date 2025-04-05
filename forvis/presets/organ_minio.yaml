@@ -9,7 +9,7 @@ common:
   wandb_project: forvis-organ
 
 checkpoint:
-  save_dir: outputs/organ/minio01
+  save_dir: outputs/organ/minio02
 
 task:
   _name: organ_minio
@@ -26,6 +26,7 @@ task:
 dataset:
   num_workers: 16
   batch_size: 128
+  # batch_size: 4
 
 criterion:
   _name: organ-ce-multiclass

@@ -5,6 +5,8 @@ import numpy as np
 import pandas as pd
 import torch
 import torchvision
+import torchvision.transforms as T
+from fairseq import metrics
 from fairseq.data import FairseqDataset
 
 from forvis.datasets.minio_config import MinIOConfig
@@ -17,7 +19,6 @@ class OrganMinIODataset(FairseqDataset):
         self, organ_dict: Dict, data_df: pd.DataFrame, minio_config: MinIOConfig
     ):
 
-        super().__init__(organ_dict=organ_dict, data_df=data_df)
         self.organ_dict = organ_dict
         self.data_df = data_df
         self.transform = torchvision.transforms.Compose(
@@ -53,3 +54,23 @@ class OrganMinIODataset(FairseqDataset):
         organs = torch.tensor(organs)
         images = torch.stack(images)
         return images, organs
+
+
+class OrganTrainMinIODataset(OrganMinIODataset):
+
+    def __init__(self, organ_dict, data_df, minio_config):
+        super().__init__(organ_dict, data_df, minio_config)
+        self.transform = T.Compose(
+            [
+                T.ToPILImage(),  # ← 把 numpy array 转成 PIL Image
+                T.Resize((520, 520)),
+                T.RandomCrop((512, 512)),
+                T.RandomHorizontalFlip(),
+                T.ToTensor(),
+                T.Normalize(mean=[0.5] * 3, std=[0.5] * 3),
+            ]
+        )
+
+    def set_epoch(self, epoch):
+        self.epoch = epoch
+        metrics.log_scalar("epoch", epoch)
