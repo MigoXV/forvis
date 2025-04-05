@@ -1,0 +1,52 @@
+# @package _group_
+hydra:
+  run:
+    dir: .
+
+common:
+  log_format: tqdm
+  log_interval: 5
+  wandb_project: forvis-organ
+
+checkpoint:
+  save_dir: outputs/organ/minio02
+
+task:
+  _name: organ_minio
+  organ_dict: data-bin/organ/organ_dict.json
+  trian_tsv: data-bin/organ/combined.csv
+  val_size: 0.2
+  minio_config:
+    endpoint: "192.168.0.222:39000"
+    access_key: test-dataset
+    secret_key: test-dataset
+    secure: false
+    bucket: forvis
+
+dataset:
+  num_workers: 16
+  batch_size: 128
+  # batch_size: 4
+
+criterion:
+  _name: organ-ce-multiclass
+
+optimization:
+  max_epoch: 60
+  lr: [0.00005]
+
+optimizer:
+  _name: adam
+  adam_betas: (0.9,0.98)
+  adam_eps: 1e-08
+
+lr_scheduler:
+  _name: fixed
+
+model:
+  _name: resnet18-512
+  base_layers: 6
+
+distributed_training:
+  distributed_world_size: 1
+  ddp_backend: no_c10d

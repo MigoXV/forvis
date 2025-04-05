@@ -27,9 +27,9 @@ url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/"
 PyYAML = "6.0.2"
 numpy = "2.0.1"
 python = "^3.10"
-torch = {version = "2.5.1", source = "pytorch"}
-torchaudio = {version = "2.5.1", source = "pytorch"}
-torchvision = {version = "0.20.1", source = "pytorch"}
+torch = {version = "2.3.1", source = "pytorch"}
+torchaudio = {version = "2.3.1", source = "pytorch"}
+torchvision = {version = "0.18.1", source = "pytorch"}
 fairseq = "^0.12.2"
 wandb = "^0.19.2"
 scikit-learn = "^1.6.1"
@@ -40,6 +40,7 @@ h5py = "^3.12.1"
 imageio = "^2.36.1"
 typer = "^0.15.1"
 seaborn = "^0.13.2"
+minio = "^7.2.15"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
