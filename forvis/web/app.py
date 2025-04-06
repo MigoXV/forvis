@@ -26,16 +26,15 @@ app.add_middleware(
     allow_headers=["*"],  # 允许所有 HTTP 头
 )
 
-# 静态文件目录设置
-app.mount("/assets", StaticFiles(directory="gui/assets", html=False), name="assets")
+# # 静态文件目录设置
+# app.mount("/assets", StaticFiles(directory="web/assets", html=False), name="assets")
+app.mount("/gui", StaticFiles(directory="gui/", html=False), name="gui")
+# app.mount("/", StaticFiles(directory="web/", html=True), name="web")
 
-
-# 捕获所有路径并返回 index.html（适用于 React Router）
-@app.get("/gui/{full_path:path}", response_class=HTMLResponse)
-async def catch_all(full_path: str):
+@app.get("/{full_path:path}", response_class=HTMLResponse)
+async def frontend(full_path: str):
     with open("gui/index.html", "r", encoding="utf-8") as f:
         return HTMLResponse(content=f.read())
-
 
 # 新增路由 /organ，当该接口传入一张图片时，将图片转为 numpy 数组并打印其形状
 @app.post("/organ")

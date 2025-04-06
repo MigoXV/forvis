@@ -24,7 +24,7 @@ class Inferencer:
         else:
             self.organ_dict = organ_dict
         self.reverse_organ_dict = {v: k for k, v in self.organ_dict.items()}
-        self.model = ResNet18(num_classes=len(self.organ_dict))
+        self.model = ResNet18(num_classes=len(self.organ_dict)).to(self.device)
         self.model.load_state_dict(ckpt["model"])
         self.model.eval()
         self.transform = torchvision.transforms.Compose(
