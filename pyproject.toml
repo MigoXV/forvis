@@ -41,6 +41,13 @@ imageio = "^2.36.1"
 typer = "^0.15.1"
 seaborn = "^0.13.2"
 minio = "^7.2.15"
+fastapi = "^0.115.12"
+openai = "^1.70.0"
+python-multipart = "^0.0.20"
+uvicorn = "^0.34.0"
+
+[tool.poetry.group.dev.dependencies]
+python-dotenv = "^1.1.0"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
